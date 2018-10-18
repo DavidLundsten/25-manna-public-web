@@ -8,11 +8,13 @@ import {Navbar, Footer} from "./Components";
 
 
 const app = {
-    fontFamily: "font-family: 'Alegreya Sans', sans-serif;",
+    fontFamily: "font-family: 'Alegreya Sans', sans-serif",
     textAlign:'center',
 }
 
+
 class App extends Component {
+
     render() {
         return (
             <Provider store = {Store()}>
@@ -25,7 +27,6 @@ class App extends Component {
                             <Route path="/about" component={About} />
                             <Footer/>
                         </div>
-
                     </Router>
                 </div>
             </Provider>
