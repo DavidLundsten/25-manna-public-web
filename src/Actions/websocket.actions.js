@@ -1,8 +1,9 @@
-import { websocketConstants } from '../Constants';
+import { websocketConstants, teamConstants } from '../Constants';
 import {hub} from '../Helpers/websocket';
+import {mockedTeamResultList} from "../Helpers";
 
 function randomMockedPunch(){
-    const items = [1,2,3,4,5,6,7,8,9,10]
+    const items = mockedTeamResultList;
     return  items[Math.floor(Math.random()*items.length)];
 }
 
@@ -11,19 +12,19 @@ function startConnection(hub) {
         dispatch(request());
         dispatch(success())  
     }
-    function request() { return { type: websocketActions.CONNECTION_START_REQUEST } }
-    function error() { return { type: websocketActions.CONNECTION_START_ERROR } }
-    function success() { return { type: websocketActions.CONNECTION_START_SUCCESS } }
+    function request() { return { type: websocketConstants.CONNECTION_START_REQUEST } }
+    function error() { return { type: websocketConstants.CONNECTION_START_ERROR } }
+    function success() { return { type: websocketConstants.CONNECTION_START_SUCCESS } }
 }
 
 function serverCall() {
     return dispatch => {
         dispatch(request());
-        dispatch(success(randomMockedPunch()));
+        dispatch(success());
     }
-    function request() { return { type: websocketActions.SERVERCALL_REQUEST} }
-    function success(payload) { return { type: websocketActions.SERVERCALL_SUCCESS, payload } }
-    function error() { return { type: websocketActions.SERVERCALL_ERROR } }
+    function request() { return { type: websocketConstants.SERVERCALL_REQUEST} }
+    function success(payload) { return { type: websocketConstants.SERVERCALL_SUCCESS, payload } }
+    function error() { return { type: websocketConstants.SERVERCALL_ERROR } }
 }
 
 export const websocketActions = {

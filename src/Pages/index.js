@@ -1,3 +1,4 @@
-export * from './Home';
-export * from './About';
-export * from './Team';
+export * from './Home/Home';
+export * from './About/About';
+export * from './Team/Team';
+export * from './Leg/Leg';

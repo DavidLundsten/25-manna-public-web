@@ -1,10 +1,11 @@
 import React from 'react';
 import {ReactDOM} from 'react-dom';
 import { Paper, TableCell, TableHead, TableBody, Table, TableRow} from '@material-ui/core';
+import {isEmpty} from 'ramda';
 
 
-export const  List = () => {
-
+export const  List = props => {
+    console.log(props.items)
     let id = 0;
     function createData(name, calories, fat, carbs, protein) {
         id += 1;
@@ -19,29 +20,20 @@ export const  List = () => {
     ];
         return (
             <Paper >
-                <Table >
+                <Table style={{margin:'0 auto'}}>
                     <TableHead style={{backgroundColor:'pink'}}>
                         <TableRow>
-                            <TableCell>Leg</TableCell>
-                            <TableCell numeric>Dist</TableCell>
-                            <TableCell numeric>Out</TableCell>
-                            <TableCell numeric>In</TableCell>
-                            <TableCell numeric>Behind</TableCell>
-                            <TableCell numeric>Pos</TableCell>
-                            <TableCell numeric>Time</TableCell>
+                            <TableCell>Team</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map(row => {
+                        {!isEmpty(props.items) && props.items.map(row => {
                             return (
                                 <TableRow key={row.id}>
                                     <TableCell component="th" scope="row">
                                         {row.name}
                                     </TableCell>
-                                    <TableCell numeric>{row.calories}</TableCell>
-                                    <TableCell numeric>{row.fat}</TableCell>
-                                    <TableCell numeric>{row.carbs}</TableCell>
-                                    <TableCell numeric>{row.protein}</TableCell>
+
                                 </TableRow>
                             );
                         })}

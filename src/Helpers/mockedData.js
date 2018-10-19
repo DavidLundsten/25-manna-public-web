@@ -81,3 +81,19 @@ export const mockedData = [
         ]
     },
 ]
+
+export const mockedTeamResultList = [
+    {name: 'IFK Göteborg Orientering'},
+    {name: 'Tampereen Pyrintö'},
+    {name: 'Helsingin Suunnistajat'},
+    {name: 'OK Linné'},
+    {name: 'Göteborg-Majorna OK'},
+    {name: 'Södertälje-Nykvarn OF'},
+    {name: 'IFK Lidingö SOK'},
+    {name: 'MS Parma 1'},
+    {name: 'Stora Tuna OK'},
+    {name: 'IFK Lidingö SOK'},
+    {name: 'OK Tisaren 1'},
+    {name: 'OK Pan-Kristianstad 1'},
+    {name: 'Järla Orientering 1'},
+]

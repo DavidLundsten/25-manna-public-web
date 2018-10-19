@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {ReactDOM} from 'react-dom';
-import connect from "react-redux/es/connect/connect";
+import {connect} from 'react-redux';
 import {TextField, Button, InputAdornment, withStyles} from '@material-ui/core';
 import {Send as NextIcon} from 'grommet-icons';
 
@@ -17,14 +17,12 @@ const styles = theme =>  ({
 
 
 
-class Footer extends Component {
+export class footer extends Component {
 
     handleChange = e => {
-      console.log('e')
     };
 
     confirmNewsletter = () => {
-     console.log('TODO')
     };
 
 
@@ -76,7 +74,7 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-const connectedApp =  connect(mapStateToProps, mapDispatchToProps)(Footer);
+const connectedApp =  connect(mapStateToProps, mapDispatchToProps)(footer);
 const styledApp = withStyles(styles)(connectedApp);
 export {styledApp as Footer};
 

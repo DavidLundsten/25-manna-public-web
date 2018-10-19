@@ -101,7 +101,6 @@ class Navbar extends Component {
     }
 
     handleClose = (e) => {
-        console.log(e)
         this.props.dispatch(navbarActions.closeDropdownMenu())
     };
 

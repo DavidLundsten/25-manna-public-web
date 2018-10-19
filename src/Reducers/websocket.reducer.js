@@ -1,11 +1,38 @@
-import {websocketConstants} from './Constants';
+import { websocketConstants } from '../Constants';
 
-export function navbar(state = {fullwidth:true}, action) {
+
+export function websocket(state = {connection:null}, action) {
 
     switch (action.type) {
-        case navbarConstants.HIDE_FULLWIDTH_BAR_REQUEST:
+        case websocketConstants.CONNECTION_START_REQUEST:
             return  {
                 ...state,
+                loading:true
+            }
+        case websocketConstants.CONNECTION_START_ERROR:
+            return  {
+                ...state,
+                loading:false
+            }
+        case websocketConstants.CONNECTION_START_SUCCESS:
+            return  {
+                ...state,
+                loading:false,
+            }
+        case websocketConstants.SERVERCALL_REQUEST:
+            return {
+                ...state,
+                waiting:true
+            }
+        case websocketConstants.SERVERCALL_SUCCESS:
+            return {
+                ...state,
+                waiting:false
+            }
+        case websocketConstants.SERVERCALL_ERROR:
+            return {
+                ...state,
+                waiting:false
             }
         default:
             return state;
