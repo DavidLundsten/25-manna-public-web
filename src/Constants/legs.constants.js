@@ -1,4 +1,4 @@
 export const legsConstants = {
-
+    ADD_RANDOM_MOCKED_TEAM_RESULT: 'LEGS_ADD_RANDOM_MOCKED_TEAM_RESULT'
 
 };

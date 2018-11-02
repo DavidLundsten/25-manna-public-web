@@ -5,3 +5,12 @@
 .results-table {
     padding:2rem;  
 }
+
+.new-arrival {
+    background-color:rgba(49, 196, 196, 0.43);
+    transition: background-color 2s;
+}
+.new-arrival:hover {
+    background-color:white;
+    
+}

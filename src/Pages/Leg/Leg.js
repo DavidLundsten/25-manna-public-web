@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Table, Paper, Typography, TableHead, TableBody, TableCell, TableRow } from '@material-ui/core';
+import { Grid, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Button, Table, Paper, Typography, TableHead, TableBody, TableCell, TableRow } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { List } from '../../Components/index';
 import { isNil } from 'ramda';
@@ -9,10 +9,17 @@ import '../../App.css';
 import './Leg.css';
 
 class Leg extends Component {
+
+   addTeam (){
+       console.log('hej')
+       this.props.dispatch()
+  }
     render() {
         const match = this.props.match;
         const leg = this.props.legs[match.params.id - 1];
-
+        console.log(leg)
+        const results = leg.results;
+        
         return (
             <div>
                 <div>
@@ -21,7 +28,6 @@ class Leg extends Component {
                         <h1 style={{ color: 'white' }}>Sträcka: {!isNil(match) && match.params.id}</h1>
                     </div>
                     <div className={"App-section"}>
-
                         <Grid item xs={12}>
                             <ExpansionPanel className={"expansion-panel"}>
                                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -46,61 +52,36 @@ class Leg extends Component {
                                 </ExpansionPanelDetails>
                             </ExpansionPanel>
                         </Grid>
+                        <Button style={{ backgroundColor: 'pink', marginTop: '20px'}}onClick={this.addTeam}>ADD RANDOM TEAM</Button>
                         <Grid container>
-                            <Grid className={"results-table"} item spacing={4} xs={12} sm={6}>
+                            <Grid className={"results-table"} item spacing={4} xs={12} sm={12}>
                                 <Paper >
-                                    <Table className={"table"}>
+                                        <Table className={"table"} style={{}}>
                                         <TableHead>
                                             <TableRow>
-                                                <TableCell>Dessert (100g serving)</TableCell>
-                                                <TableCell numeric>Calories</TableCell>
-                                                <TableCell numeric>Fat (g)</TableCell>
-                                                
-                                                
+                                                <TableCell>Pos</TableCell>
+                                                <TableCell>Team</TableCell>
+                                                <TableCell numeric>Time</TableCell>
+                                                <TableCell>Behind</TableCell>
+                                             
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
-                                            {[1,2,3].map(row => {
+                                            {results.map(row => {
                                                 return (
-                                                    <TableRow key={row.id}>
-                                                        <TableCell component="th" scope="row">
-                                                            {row.name}
+                                                    <TableRow className={row.newArrival && 'new-arrival'} key={row.id}>
+                                                        <TableCell >
+                                                            {!isNil(row.position)? row.position: '' }
                                                         </TableCell>
-                                                        <TableCell numeric>{row.calories}</TableCell>
-                                                        <TableCell numeric>{row.calories}</TableCell>
-                                                        
-                                                        
-                                                        
-                                                    </TableRow>
-                                                );
-                                            })}
-                                        </TableBody>
-                                    </Table>
-                                </Paper>
-                            </Grid>
-                            <Grid className={"results-table"} item xs={12} sm={6}>
-                                <Paper>
-                                    <Table className={"table"}>
-                                        <TableHead>
-                                            <TableRow>
-                                                <TableCell>Dessert (100g serving)</TableCell>
-                                                <TableCell numeric>Calories</TableCell>
-                                                <TableCell numeric>Fat (g)</TableCell>
-                                                
-                                               
-                                            </TableRow>
-                                        </TableHead>
-                                        <TableBody>
-                                            {[1,2,3].map(row => {
-                                                return (
-                                                    <TableRow key={row.id}>
-                                                        <TableCell component="th" scope="row">
-                                                            {row.name}
+                                                        <TableCell padding='none' component="th" scope="row">
+                                                            { !isNil(row.name)? row.name : ""}
                                                         </TableCell>
-                                                        <TableCell numeric>{row.calories}</TableCell>
-                                                        <TableCell numeric>{row.fat}</TableCell>
-                                                        
-                                                      
+                                                        <TableCell numeric>
+                                                            { !isNil(row.time)? row.time : ""}
+                                                        </TableCell>
+                                                        <TableCell numeric>
+                                                            {!isNil(row.behind) ? row.behind : "" }
+                                                        </TableCell>
                                                     </TableRow>
                                                 );
                                             })}
@@ -129,6 +110,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        dispatch
     }
 }
 
