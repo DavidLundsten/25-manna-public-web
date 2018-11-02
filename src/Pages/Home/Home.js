@@ -33,8 +33,12 @@ class Home extends Component {
                 <div style={{...style.section, backgroundColor:'#03293C'}}>
                     <Grid container style = {{maxWidth:'900px'}}>
                         <Grid item xs={12}>
-                            <h1 style={{color:'white'}}>Sträcka med löpare i mål:</h1>
-                            {this.props.legs.map((leg)=><Link to={`/leg/${leg.id}`} key={leg}><div style={{color:'white'}}>{leg.id}</div></Link>)}
+                            <h1 style={{color:'white'}}>Sträcka:</h1>
+                            {this.props.legs.map((leg) =>
+                                <Link
+                                    to={`/leg/${leg.id}`}
+                                >
+                                <div style={{ color: 'white' }}>{leg.number}</div></Link>)}
                         </Grid>
                         <br/>
 

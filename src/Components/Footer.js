@@ -1,86 +1,43 @@
-import React, { Component } from 'react';
-import {ReactDOM} from 'react-dom';
-import {connect} from 'react-redux';
-import {TextField, Button, InputAdornment, withStyles} from '@material-ui/core';
-import {Send as NextIcon} from 'grommet-icons';
-
-const styles = theme =>  ({
-    section:{
-        minHeight:'50vh',
-        display:'flex',
-        color:'white',
-        flexDirection:'column',
-        alignItems:'center',
-        justifyContent:'center',
-    },
-})
+import React, { useState, useEffect, useContext } from 'react';
+import { ThemeContext } from '../Contexts/ThemeContext';
+import { Send as NextIcon } from 'grommet-icons';
+import './Styles/Footer.css';
+import Grid from '@material-ui/core/Grid';
 
 
+export default props => {
+    const [long, setLong] = useState('0');
+    const [lat, setLat] = useState('0');
+    const initialTheme = useContext(ThemeContext);
 
-export class footer extends Component {
+    useEffect(() => {
+        document.title = long + " " + lat;
+    })
 
-    handleChange = e => {
-    };
+    useEffect(() => {
+        var startPos;
+        var geoSuccess = function (position) {
+            startPos = position;
+            setLong(startPos.coords.longitude);
+            setLat(startPos.coords.latitude);
+        };
+        navigator.geolocation.getCurrentPosition(geoSuccess);
+    })
 
-    confirmNewsletter = () => {
-    };
-
-
-    render (){
-        const { classes } = this.props;
-        return (
-            <React.Fragment>
-                <div className={classes.section}>
-                    <h1 style={{fontWeight:'400', color:'#219DBE'}}>Prenumerera på vårt nyhetsbrev!</h1>
-                    <TextField
-                        id="outlined-email-input"
-                        label="Email"
-                        style={{width:'18.75rem'}}
-                        type="email"
-                        name="email"
-                        autoComplete="email"
-                        margin="normal"
-                        variant="outlined"
-                        onChange={this.handleChange}
-                        InputProps={{
-                            startAdornment: (
-                                <InputAdornment
-                                    position="end"
-                                    style={{ order: "2", paddingRight:'0.5rem'}}
-                                    onClick={this.confirmNewsletter}
-                                >
-                                    <Button>
-                                        <NextIcon/>
-                                    </Button>
-                                </InputAdornment>
-                            )
-                        }}
-                    />
-                </div>
-            </React.Fragment>
-        )
-    }
+    return (
+        <div className={initialTheme.userTheme + "-theme"}>
+            <Grid container spacing={16}>
+                <Grid item sm={4} xs={12}>{long}</Grid>
+                <Grid item sm={4} xs={12}></Grid>
+                <Grid item sm={4} xs={12}> {lat}</Grid>
+            </Grid>
+                    
+                    <br>
+                    </br>
+                   
+                </div>  
+  
+    );
 }
-
-const mapStateToProps = (state) => {
-    return {
-        state
-    }
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        dispatch
-    }
-}
-
-const connectedApp =  connect(mapStateToProps, mapDispatchToProps)(footer);
-const styledApp = withStyles(styles)(connectedApp);
-export {styledApp as Footer};
-
-
-
-
-
-
+    
 

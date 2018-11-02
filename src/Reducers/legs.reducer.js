@@ -1,9 +1,9 @@
-import {legsConstants} from '../Constants';
+import { legsConstants } from '../Constants';
+import { mocked_legs } from '../Helpers/mockedLegs';
 
-export function legs(state = {legs: [{id:1, distance: 4}]}, action) {
+export function legs(state = {legs: mocked_legs}, action) {
 
     switch (action.type) {
-
         case legsConstants.UPDATE_LEG_RESULTS_REQUEST:
             return {
                 ...state,

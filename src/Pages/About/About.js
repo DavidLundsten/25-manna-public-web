@@ -7,9 +7,6 @@ export class About extends Component {
             <div>
                 <header className="App-header">
                     About
-                
-        
-
                 </header>
                 <h2>Om 25 manna live results</h2>
         <p>

@@ -4,20 +4,22 @@ import {Provider} from 'react-redux';
 import {Store} from './Helpers';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import {Home, About, Team, Leg} from './Pages';
-import {Navbar, Footer, Websocket} from "./Components";
+import { Navbar, Websocket } from "./Components";
+import Footer from "./Components/Footer";
+import { ThemeContext } from './Contexts/ThemeContext';
+import userConfig from './Helpers/config';
 
 
-const app = {
+const app = {  
     fontFamily: "font-family: 'Alegreya Sans', sans-serif",
     textAlign:'center',
 }
 
-
 class App extends Component {
-
     render() {
         return (
-            <Provider store = {Store()}>
+            <Provider store={Store()}>
+                <ThemeContext.Provider value={userConfig}>
                 <div style={app}>
                     <Router>
                         <div>
@@ -25,12 +27,13 @@ class App extends Component {
                             <Navbar/>
                             <Route exact path="/" component={Home} />
                             <Route path="/team/:id" component={Team} />
-                            <Route path="/about" component={About} />
+                            <Route path="/om-oss" component={About} />
                             <Route path="/leg/:id" component={Leg} />
-                            <Footer/>
+                            <Footer />
                         </div>
                     </Router>
-                </div>
+                    </div>
+                </ThemeContext.Provider>
             </Provider>
         );
     }

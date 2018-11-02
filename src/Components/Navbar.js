@@ -1,86 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import {ReactDOM} from 'react-dom';
 import logo from '../Images/25mannalogo.png';
 import { connect } from 'react-redux';
-import {navbarActions} from "../Actions";
+import {navbarActions, menusActions} from "../Actions";
 import {Menu as MenuIcon} from 'grommet-icons';
 import {Hidden, Menu} from '@material-ui/core/';
 import MenuItem from '@material-ui/core/MenuItem';
-
-const style ={
-    navbar:
-        {
-            backgroundColor: 'transparent',
-            position:'fixed',
-            top:0,
-            width:'100%',
-            transition: '1.5s'
-        },
-    navbarHidden:
-        {
-            backgroundColor: 'transparent',
-            position:'fixed',
-            top:0,
-            width:'100%',
-            opacity:'0',
-            transition: '0.5s'
-        },
-    mobileMenu:
-        {
-            backgroundColor: 'transparent',
-            position:'fixed',
-            top:0,
-            width:'100%',
-            transition: '1.5s',
-            padding:'20px',
-            float:'right',
-            zIndex:'99'
-        },
-    mobileMenuHidden:
-        {
-            backgroundColor: 'transparent',
-            position:'fixed',
-            top:0,
-            width:'100%',
-            opacity:'0',
-            transition: '0.5s',
-            padding:'20px',
-            float:'right'
-        },
-    icon:
-        {
-            float:'right',
-            marginRight:'50px'
-        },
-    logo:
-        {
-            width:'70px',
-            float:'left',
-            padding:'5px',
-
-        },
-    link:
-        {
-            height:'100%',
-            float:'right',
-            padding:'20px',
-            display: 'inline-block',
-            textDecoration: 'none',
-            color: 'white',
-            fontSize:'16px',
-            textTransform:'uppercase'
-        },
-}
+import './Styles/Navbar.css';
 
 
 class Navbar extends Component {
-
+    
     state = {
         anchorEl: null,
     };
 
-    componentDidMount(){
+    componentDidMount() {
+        this.props.dispatch(menusActions.getMenus());
         window.addEventListener('scroll', (e) => this.handleScroll(e));
     }
     componentWillUnmount(){
@@ -104,16 +41,22 @@ class Navbar extends Component {
         this.props.dispatch(navbarActions.closeDropdownMenu())
     };
 
-    render (){
+    render() {
         return (
             <React.Fragment>
-                <nav style={this.props.navbar.fullwidth? style.navbar : style.navbarHidden}>
-                    <img  style={style.logo} src={logo}  alt="fireSpot"/>
-                    <Link style={style.link} to={"/om-oss"}> Om oss </Link>
+                <Hidden xsDown>
+                <nav className={this.props.navbar.fullwidth ? "navbar": "navbar navbar-hidden"}>
+                    <img className={"logo"} src={logo} alt="25-manna logo" />
+               
+                    <Link className={"link"} to={"/om-oss"}> {`Current width: ${this.props.width}`} </Link>
+                    <Link className={"link"} to={"/om-oss"}> Om oss </Link>
+                    <Link className={"link"} to={"/om-oss"}> Om oss </Link>
                 </nav>
-                {!this.props.navbar.fullwidth && <Hidden smUp={true}>
-                    <nav style={!this.props.navbar.fullwidth? style.mobileMenu : style.mobileMenuHidden}>
-                        <MenuIcon style={style.icon} color='white' size='large' aria-haspopup="true" onClick={()=> this.props.dispatch(navbarActions.openDropdownMenu())}  aria-owns={this.props.navbar.fullwidth ? 'simple-menu' : null}/>
+                {console.log(this.props.navbar.fullwidth)}
+                
+                {!this.props.navbar.fullwidth  && 
+                    <nav className={!this.props.navbar.fullwidth? "mobile-menu" : "mobile-menu-hidden"}>
+                        <MenuIcon className={"icon"} color='white' size='large' aria-haspopup="true" onClick={()=> this.props.dispatch(navbarActions.openDropdownMenu())}  aria-owns={this.props.navbar.fullwidth ? 'simple-menu' : null}/>
                         <Menu
                             id="simple-menu"
                             open={this.props.dropdownMenu}
@@ -122,28 +65,60 @@ class Navbar extends Component {
                             anchorReference="none"
                             PaperProps={{
                                 style: {
-                                    width: '20%',
+                                    width: '30%',
                                     padding: 0,
                                     right: '1%',
                                     top:'3%',
                                     opacity: '0.9'
                                 },
                             }}
-
                             MenuListProps={{
                                 style: {
                                     padding: 0,
                                     backgroundColor:'transparent'
-
                                 },
                             }}
                         >
-                            <MenuItem style = {style.menuItem} onClick={this.handleClose}>Tävlingar</MenuItem>
-                            <MenuItem style = {style.menuItem} onClick={this.handleClose}>Kalender</MenuItem>
-                            <MenuItem style = {style.menuItem} onClick={this.handleClose}>Om oss</MenuItem>
+                            <MenuItem className={"menu-item"} onClick={this.handleClose}>Tävlingar</MenuItem>
+                            <MenuItem className={"menu-item"} onClick={this.handleClose}>Kalender</MenuItem>
+                            <MenuItem className={"menu-item"} onClick={this.handleClose}>Om oss</MenuItem>
                         </Menu>
                     </nav>
-                </Hidden>}
+                    }
+                </Hidden>
+
+                <Hidden smUp>
+                    <nav className={"mobile-menu"}>
+                        <MenuIcon className={"icon"} color='white' size='large' aria-haspopup="true" onClick={() => this.props.dispatch(navbarActions.openDropdownMenu())} aria-owns={this.props.navbar.fullwidth ? 'simple-menu' : null} />
+                        <Menu
+
+                            id="simple-menu"
+                            open={this.props.dropdownMenu}
+
+                            onClose={() => this.props.dispatch(navbarActions.closeDropdownMenu())}
+                            anchorReference="none"
+                            PaperProps={{
+                                style: {
+                                    width: '95%',
+                                    padding: 0,
+                                    right: '3%',
+                                    top: '3%',
+                                    opacity: '0.9'
+                                },
+                            }}
+                            MenuListProps={{
+                                style: {
+                                    padding: 0,
+                                    backgroundColor: 'transparent'
+                                },
+                            }}
+                        >
+                            <MenuItem onClick={this.handleClose}>Tävlingar</MenuItem>
+                            <MenuItem onClick={this.handleClose}>Kalender</MenuItem>
+                            <MenuItem onClick={this.handleClose}>Om oss</MenuItem>
+                        </Menu>
+                    </nav>
+                </Hidden>
 
 
             </React.Fragment>
@@ -155,13 +130,16 @@ class Navbar extends Component {
 const mapStateToProps = (state) => {
     return {
         navbar: state.navbar,
-        dropdownMenu: state.navbar.dropdownMenu
+        dropdownMenu: state.navbar.dropdownMenu,
+        theme: state.theme.themecolor,
+        menus: state.menus
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         dispatch
+
     }
 }
 

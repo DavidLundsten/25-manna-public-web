@@ -1,0 +1,61 @@
+ .navbar {
+            background-color: transparent;
+            position:fixed;
+            top:0;
+            width:100%;
+            transition: 1.5s;
+ }
+            
+ .navbar-hidden {
+            background-color: transparent;
+            opacity:0;
+            transition: '0.5s'
+ }
+
+.mobile-menu{
+            background-color: transparent;
+            position:fixed;
+            top:0;
+            width:100%;
+            transition: 1.5s;
+            padding:20px;
+            float:right;
+            zIndex:99;
+        }
+
+    .mobile-menu-hidden {
+            background-color: transparent;
+            position:fixed;
+            top:0;
+            width:100%;
+            opacity:0;
+            transition: 0.5s;
+            padding:20px;
+            float:right;
+    }
+    
+    .icon {
+        
+            float:right;
+            margin-right:50px;
+            opacity:0.7;
+
+        }
+    .logo {
+            width:70px;
+            float:left;
+            padding:5px;
+        }
+    .link
+        {
+            height:100%;
+            float:right;
+            padding:20px;
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            font-size:16px;
+            text-transform:uppercase;
+        }
+      
+    
